@@ -8,6 +8,7 @@ import com.example.TpIntegrador.Features.Buque.BuqueRepository;
 import com.example.TpIntegrador.Features.Puerto.Dtos.PuertoRequest;
 import com.example.TpIntegrador.Features.Puerto.Dtos.PuertoResponse;
 import com.example.TpIntegrador.Features.Puerto.Mapper.PuertoMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class PuertoService implements IPuertoService{
     }
 
     @Override
+    @Transactional
     public PuertoResponse crearPuerto(PuertoRequest puertoRequest) {
        String nombre = puertoRequest.getNombre().trim();
        String pais = puertoRequest.getPais().trim();
@@ -41,6 +43,7 @@ public class PuertoService implements IPuertoService{
     }
 
     @Override
+    @Transactional
     public PuertoResponse actualizarPuerto(long id, PuertoRequest puertoRequest) {
         PuertoEntity puertoExistente = puertoRepository.findById(id)
                 .orElseThrow(() -> new PuertoNotFoundException("Puerto no encontrado con ID: " + id));
@@ -67,6 +70,7 @@ public class PuertoService implements IPuertoService{
     }
 
     @Override
+    @Transactional
     public void eliminarPuerto(long id) {
 
         PuertoEntity entity = puertoRepository.findById(id)

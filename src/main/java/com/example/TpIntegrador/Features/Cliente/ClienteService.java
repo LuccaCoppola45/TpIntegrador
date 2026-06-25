@@ -29,6 +29,7 @@ public class ClienteService implements IClienteService{
 
 
     @Override
+    @Transactional
     public ClienteResponse crearCliente(ClienteRequest clienteRequest) {
         String dni = clienteRequest.getDni();
 
@@ -82,6 +83,7 @@ public class ClienteService implements IClienteService{
     }
 
     @Override
+    @Transactional
     public ClienteResponse ActualizarCliente(long ClienteId, ActualizarClienteDto actualizarClienteDto) {
         ClienteEntity cliente = clienteRepository.findById(ClienteId)
                 .orElseThrow(() -> new ClienteNotFoundException("Cliente no encontrado"));

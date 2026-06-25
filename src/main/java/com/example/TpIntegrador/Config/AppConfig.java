@@ -13,8 +13,10 @@ public class AppConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper mapper =  new ModelMapper();
+        //Solo hace que mape los nombres que son exactamente iguales
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        //basicamente le indique al model mapper los caminos para que pueda mapear estos nombres en el contenedorentity
         mapper.createTypeMap(ContenedorEntity.class, ContenedorResponse.class)
                 .addMapping(src -> src.getCliente().getRazon_social(), ContenedorResponse::setRazonSocial)
                 .addMapping(src -> src.getPuertoDestino().getNombre(), ContenedorResponse::setNombrePuertoDestino)

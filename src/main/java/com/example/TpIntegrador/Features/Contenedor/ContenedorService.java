@@ -47,6 +47,7 @@ public class ContenedorService implements IContenedorService {
 
 
     @Override
+    @Transactional
     public ContenedorResponse crear(ContenedorRequest request) {
         ContenedorEntity entity = mapper.toEntity(request);
 

@@ -13,6 +13,7 @@ import com.example.TpIntegrador.Features.Contenedor.ContenedorEntity;
 import com.example.TpIntegrador.Features.Contenedor.ContenedorRepository;
 import com.example.TpIntegrador.Features.Puerto.PuertoEntity;
 import com.example.TpIntegrador.Features.Puerto.PuertoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -34,6 +35,7 @@ public class BuqueService implements IBuqueService{
     }
 
     @Override
+    @Transactional
     public BuqueResponse crearBuque(BuqueRequest buqueRequest) {
         if (buqueRepository.existsByMatriculaImo(buqueRequest.getMatriculaImo())) {
             throw new BuqueDuplicatedException("Ya existe un buque con esa matrícula.");
@@ -46,6 +48,7 @@ public class BuqueService implements IBuqueService{
     }
 
     @Override
+    @Transactional
     public BuqueResponse actualizarBuque(long id, BuqueRequest buqueRequest) {
         BuqueEntity entity = buqueRepository.findById(id)
                 .orElseThrow(() -> new BuqueNotFoundException("Buque no encontrado"));
@@ -55,6 +58,7 @@ public class BuqueService implements IBuqueService{
     }
 
     @Override
+    @Transactional
     public void eliminarBuque(long id) {
         BuqueEntity buque = buqueRepository.findById(id)
                 .orElseThrow(() -> new BuqueNotFoundException("Buque no encontrado"));
@@ -77,6 +81,7 @@ public class BuqueService implements IBuqueService{
     }
 
     @Override
+
     public BuqueResponse obtenerBuque(long id) {
         BuqueEntity buque = buqueRepository.findById(id)
                 .orElseThrow(() -> new BuqueNotFoundException("Buque no encontrado con id "+ id));
@@ -89,6 +94,7 @@ public class BuqueService implements IBuqueService{
     }
 
     @Override
+    @Transactional
     public BuqueResponse asignarRuta(Long id, BuqueAsignarPuertoRequest buqueRequest) {
         BuqueEntity buque = buqueRepository.findById(id)
                 .orElseThrow(() -> new BuqueNotFoundException("Buque no encontrado"));
