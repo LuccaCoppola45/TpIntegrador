@@ -13,4 +13,5 @@ public interface IBuqueService {
     BuqueResponse obtenerBuque(long id);
     List<BuqueResponse> obtenerBuques();
     BuqueResponse asignarRuta(Long id, BuqueAsignarPuertoRequest  buqueRequest);
+    void alternarMantenimiento(Long buqueId);
 }

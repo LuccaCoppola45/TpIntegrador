@@ -30,6 +30,8 @@ public class BuqueEntity {
     @Column(name = "fecha_salida")
     private LocalDate fechaSalida;
 
+    private  boolean enMantenimiento = false;
+
     @Column(name = "capacidad_maxima_toneladas")
     private Double capacidadMaximaToneladas;
 

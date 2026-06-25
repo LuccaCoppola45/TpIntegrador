@@ -43,6 +43,11 @@ public class BuqueController {
     public ResponseEntity<BuqueResponse> asignarRuta(@PathVariable Long id, @RequestBody BuqueAsignarPuertoRequest request) {
         return ResponseEntity.ok(buqueService.asignarRuta(id, request));
     }
+    @PatchMapping("/{id}/mantenimiento")
+    public ResponseEntity<String> cambiarMantenimiento(@PathVariable Long id) {
+        buqueService.alternarMantenimiento(id);
+        return ResponseEntity.ok("Estado de mantenimiento del buque actualizado.");
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> darDeBaja(@PathVariable Long id) {

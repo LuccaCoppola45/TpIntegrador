@@ -135,6 +135,10 @@ public class ContenedorService implements IContenedorService {
         if (buque.getEstadoOperativo() != EstadoOperativo.EN_PUERTO)
             throw new NotActiveException("El buque no está en puerto para operar");
 
+        if (buque.isEnMantenimiento()) {
+            throw new NotActiveException("El buque se encuentra actualmente en mantenimiento y no puede recibir carga.");
+        }
+
         // --- 2. VALIDACIÓN DE RUTA COMERCIAL ---
         // Regla: El contenedor debe tener como destino un puerto incluido en la ruta del buque
         boolean destinoEnRuta = buque.getRutasComerciales().contains(contenedor.getPuertoDestino());

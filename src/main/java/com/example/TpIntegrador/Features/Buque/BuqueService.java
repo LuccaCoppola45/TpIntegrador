@@ -105,4 +105,16 @@ public class BuqueService implements IBuqueService{
 
         return buquemapper.toDto(buqueRepository.save(buque));
     }
+
+    @Override
+    @Transactional
+    public void alternarMantenimiento(Long buqueId) {
+        BuqueEntity buque = buqueRepository.findById(buqueId)
+                .orElseThrow(() -> new BuqueNotFoundException("Buque no encontrado"));
+
+        // Cambiamos el estado (si está en mantenimiento, lo libera; si no, lo pone en mantenimiento)
+        buque.setEnMantenimiento(!buque.isEnMantenimiento());
+
+        buqueRepository.save(buque);
+    }
 }

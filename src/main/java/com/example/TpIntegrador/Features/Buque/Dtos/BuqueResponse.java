@@ -22,6 +22,7 @@ public class BuqueResponse {
     private EstadoOperativo estadoOperativo;
     private Boolean activo;
     private LocalDate fechaSalida;
+    private Boolean enMantenimiento;
     private Set<Long> rutasComercialesIds;
     private Set<Long> contenedoresIds;
 }
