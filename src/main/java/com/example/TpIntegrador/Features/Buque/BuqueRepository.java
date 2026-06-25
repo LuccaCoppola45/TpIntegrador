@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BuqueRepository extends JpaRepository<BuqueEntity, Long> {
 
-    @Query("SELECT COUNT(b) > 0 FROM BuqueEntity b WHERE b.matriculaImo = :matricula")
+    @Query("SELECT COUNT(b) > 0 FROM BuqueEntity b WHERE b.matriculaImo = :matricula")// esta query que hice va a la tabla de buque , y cuenta cuantos tienen la matricula especifica y si ese numero es mayor a cero
     boolean existsByMatriculaImo(@Param("matricula") String matricula);
 }

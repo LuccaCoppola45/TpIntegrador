@@ -33,16 +33,18 @@ public class Buquemapper {
 
         if (buqueEntity.getContenedores() != null) {
             Set<Long> ids = buqueEntity.getContenedores().stream()
-                    .map(ContenedorEntity::getContenedor_id) // Extraemos solo el ID
+                    .map(ContenedorEntity::getContenedor_id) // Este mapper lo hice para que mapee bien la lista de ids de contenedores en el postman,
+                                                                // es manual porque el model mapper no mapeaba bien
                     .collect(Collectors.toSet());
-            response.setContenedoresIds(ids); // Asegúrate de tener este setter
+            response.setContenedoresIds(ids);
         }
 
         if (buqueEntity.getRutasComerciales() != null) {
             Set<Long> ids = buqueEntity.getRutasComerciales().stream()
                     .map(PuertoEntity::getPuerto_id) // Extraemos solo el ID
                     .collect(Collectors.toSet());
-            response.setRutasComercialesIds(ids); // Asegúrate de tener este setter
+            response.setRutasComercialesIds(ids); // Este mapper lo hice para que mapee bien la lista de ids de contenedores en el postman,
+                                                    // es manual porque el model mapper no mapeaba bien
         }
         return response;
     }

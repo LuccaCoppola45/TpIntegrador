@@ -32,25 +32,25 @@ public class GlobalHandlerException {
     @ExceptionHandler(EspacioInsufcienteException.class)
     public ResponseEntity<@NonNull ErrorResponse> handlerEspacioInsuficiente(EspacioInsufcienteException ex, HttpServletRequest request){
         ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value()) // 404
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase()) // "Not Found"
+                .status(HttpStatus.CONFLICT.value()) // 409
+                .error(HttpStatus.CONFLICT.getReasonPhrase()) // "Peticion correcta, no pasa la regla del negocio"
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .timestamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(NotVipException.class)
     public ResponseEntity<@NonNull ErrorResponse> handlerNotVip(NotVipException ex, HttpServletRequest request){
         ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value()) // 404
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase()) // "Not Found"
+                .status(HttpStatus.CONFLICT.value()) // 404
+                .error(HttpStatus.CONFLICT.getReasonPhrase()) // "Not Found"
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .timestamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(BuqueCargaActivaException.class)
@@ -92,13 +92,13 @@ public class GlobalHandlerException {
     @ExceptionHandler(BuqueDuplicatedException.class)
     public ResponseEntity<@NonNull ErrorResponse> handlerbBuqueDuplicated(BuqueDuplicatedException ex, HttpServletRequest request){
         ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value()) // 404
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase()) // "Not Found"
+                .status(HttpStatus.CONFLICT.value()) // 404
+                .error(HttpStatus.CONFLICT.getReasonPhrase()) // "Not Found"
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .timestamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
 
@@ -117,13 +117,13 @@ public class GlobalHandlerException {
     @ExceptionHandler(PuertoDuplicatedException.class)
     public ResponseEntity<@NonNull ErrorResponse> handlerbPuertoDuplicated(PuertoDuplicatedException ex, HttpServletRequest request){
         ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value()) // 404
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase()) // "Not Found"
+                .status(HttpStatus.CONFLICT.value()) //
+                .error(HttpStatus.CONFLICT.getReasonPhrase()) //
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .timestamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(NotActiveException.class)
@@ -152,25 +152,26 @@ public class GlobalHandlerException {
     @ExceptionHandler(DniDuplicatedException.class)
     public ResponseEntity<@NonNull ErrorResponse> handlerDniDuplicatedException(DniDuplicatedException ex, HttpServletRequest request){
         ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value()) // 404
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase()) // "Not Found"
+                .status(HttpStatus.CONFLICT.value()) //
+                .error(HttpStatus.CONFLICT.getReasonPhrase()) //
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .timestamp(LocalDateTime.now())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
 
+    //Uso map porque la llave seria el nombre del campo y el valor es el mensaje que ponemos en el dto
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errores = new HashMap<>();
 
-        // Recorremos todos los errores que saltaron en la validación
+        // Recorremos todos los errores que saltaron en la lisata de errores usando un for each, extraemos en nombre del campo y despues el mensaje de defini en el dto
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String campo = ((FieldError) error).getField();
             String mensaje = error.getDefaultMessage();
-            errores.put(campo, mensaje);
+            errores.put(campo, mensaje); // aca se hace el json
         });
 
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);

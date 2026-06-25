@@ -54,7 +54,8 @@ public class BuqueService implements IBuqueService{
                 .orElseThrow(() -> new BuqueNotFoundException("Buque no encontrado"));
 
         buquemapper.updateEntity(buqueRequest, entity);
-        return buquemapper.toDto(buqueRepository.save(entity));
+        BuqueEntity buqueEntity = buqueRepository.save(entity);
+        return buquemapper.toDto(buqueEntity);
     }
 
     @Override

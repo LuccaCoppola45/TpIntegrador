@@ -11,7 +11,7 @@ import java.util.List;
 public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
     List<ClienteEntity> findByActivoTrue();
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM ClienteEntity c WHERE c.dni = :dni")
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM ClienteEntity c WHERE c.dni = :dni")//esta query devuelve 0 o 1 si el dni coincide
     boolean existsByDni(@Param("dni") String dni);
 
 }
